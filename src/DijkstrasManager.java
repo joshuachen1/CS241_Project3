@@ -22,18 +22,16 @@ public class DijkstrasManager {
         reset();
     }
 
-    public List<City> getCityList() {
-        return cityList;
-    }
-
-    public List<Road> getRoadList() {
-        return roadList;
-    }
-
     public boolean[][] getAdjacencyMatrix() {
         return adjacencyMatrix;
     }
 
+    /**
+     * Returns City Object toString with Corresponding City Code.
+     *
+     * @param cityCode
+     * @return
+     */
     public String displayCityInfo(String cityCode) {
         City city = getCityFromList(cityCode.toUpperCase());
         if (city != null) {
@@ -42,6 +40,13 @@ public class DijkstrasManager {
         return "Invalid City Code";
     }
 
+    /**
+     * Returns the Shortest Path From City 1 to City 2.
+     *
+     * @param cityCode1
+     * @param cityCode2
+     * @return
+     */
     public String displayShortestPath(String cityCode1, String cityCode2) {
         City startCity = getCityFromList(cityCode1.toUpperCase());
         City endCity = getCityFromList(cityCode2.toUpperCase());
@@ -49,9 +54,9 @@ public class DijkstrasManager {
         if (startCity != null && endCity != null) {
             getShortestPath(startCity);
 
-            String shortestPath = "The min distance between " +  cityList.get(startCity.getNumber() - 1).getName()
-                                + " and " + cityList.get(endCity.getNumber() - 1). getName() + " is "
-                                + distances[endCity.getNumber() - 1] + " through the path: ";
+            String shortestPath = "The min distance between " + cityList.get(startCity.getNumber() - 1).getName()
+                    + " and " + cityList.get(endCity.getNumber() - 1).getName() + " is "
+                    + distances[endCity.getNumber() - 1] + " through the path: ";
             List<String> cityCodes = new ArrayList<>();
             int currCity = endCity.getNumber() - 1;
 
@@ -69,6 +74,12 @@ public class DijkstrasManager {
 
     }
 
+    /**
+     * Returns City Object with Corresponding City Code.
+     *
+     * @param cityCode
+     * @return
+     */
     private City getCityFromList(String cityCode) {
         for (City c : cityList) {
             if (cityCode.equals(c.getCityCode())) {
@@ -78,6 +89,12 @@ public class DijkstrasManager {
         return null;
     }
 
+    /**
+     * Set Values from Starting City.
+     * Predetermines Shortest Path to All Possible Connecting Cities.
+     *
+     * @param startCity
+     */
     private void getShortestPath(City startCity) {
         reset();
 
@@ -88,7 +105,7 @@ public class DijkstrasManager {
             // u: city with smallest distance
             int u = heap.remove().getCityNum();
             if (remainingCities.indexOf(u) != -1) {
-                remainingCities.remove(remainingCities.indexOf(u));
+                remainingCities.remove(u);
             }
 
             List<Road> roadsFromU = new ArrayList<>();
@@ -103,7 +120,7 @@ public class DijkstrasManager {
 
                 if (weight < distances[v.getEndCity() - 1]) {
                     distances[v.getEndCity() - 1] = weight;
-                    precedingCities[v.getEndCity() - 1] = u -1;
+                    precedingCities[v.getEndCity() - 1] = u - 1;
                 }
                 if (remainingCities.indexOf(v.getEndCity()) != -1) {
                     heap.insert(v.getEndCity(), weight);
@@ -112,13 +129,18 @@ public class DijkstrasManager {
         }
     }
 
+    /**
+     * Reset Values for Determining Shortest Path.
+     */
     private void reset() {
         this.remainingCities = new ArrayList<>();
         this.heap = new MinHeap();
         this.distances = new int[cityList.size()];
         this.precedingCities = new int[cityList.size()];
 
-        // Each Vertex has Set Distance to Inf. and Preceding City to Undef.
+        // Each Vertex has
+        // Set Distance to Infinity
+        // Set Preceding City to Undefined
         for (int i = 1; i < cityList.size() + 1; i++) {
             remainingCities.add(i);
             distances[i - 1] = Integer.MAX_VALUE;
@@ -129,6 +151,7 @@ public class DijkstrasManager {
     /**
      * Read the List of Roads.
      * Create Adjacency Matrix of size: numCities.
+     *
      * @param numCities
      * @return Adjacency Matrix representing the connecting roads.
      */

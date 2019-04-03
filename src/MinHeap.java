@@ -38,6 +38,7 @@ public class MinHeap {
 
     /**
      * Trickles value up the heap at given index.
+     *
      * @param index
      */
     private void trickleUp(int index) {
@@ -54,6 +55,7 @@ public class MinHeap {
 
     /**
      * Trickles value down the heap at given index.
+     *
      * @param index
      */
     private void trickleDown(int index) {
