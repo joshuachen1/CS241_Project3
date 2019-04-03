@@ -14,6 +14,7 @@ public class Driver {
 
         Scanner inputScanner = new Scanner(System.in);
         String menuCommand, userInput;
+        String[] multipleInputs;
 
         do {
             displayMenu();
@@ -21,10 +22,16 @@ public class Driver {
 
             switch (menuCommand.toUpperCase().charAt(0)) {
                 case 'Q':
+                    // Input 1 City Code
                     System.out.print("City Code: ");
                     userInput = inputScanner.nextLine();
                     System.out.println("\n" + dm.displayCityInfo(userInput) + "\n");
                     break;
+                case 'D':
+                    // Input 2 City Codes
+                    System.out.print("City Codes: ");
+                    multipleInputs = inputScanner.nextLine().split("\\s+");
+                    System.out.println("\n" + dm.displayShortestPath(multipleInputs[0].trim(), multipleInputs[1].trim()) + "\n");
             }
         } while (!menuCommand.equals("E"));
     }

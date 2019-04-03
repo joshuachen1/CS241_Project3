@@ -4,14 +4,14 @@
  */
 public class City {
     private int number;
-    private String acronym;
+    private String cityCode;
     private String name;
     private int population;
     private int elevation;
 
-    public City(int number, String acronym, String name, int population, int elevation) {
+    public City(int number, String cityCode, String name, int population, int elevation) {
         this.number = number;
-        this.acronym = acronym;
+        this.cityCode = cityCode;
         this.name = name;
         this.population = population;
         this.elevation = elevation;
@@ -21,8 +21,8 @@ public class City {
         return number;
     }
 
-    public String getAcronym() {
-        return acronym;
+    public String getCityCode() {
+        return cityCode;
     }
 
     public String getName() {
@@ -41,7 +41,7 @@ public class City {
     public String toString() {
         return "City{" +
                 "number = " + number +
-                ", acronym = '" + acronym + '\'' +
+                ", cityCode = '" + cityCode + '\'' +
                 ", name = '" + name + '\'' +
                 ", population = " + population +
                 ", elevation = " + elevation +
