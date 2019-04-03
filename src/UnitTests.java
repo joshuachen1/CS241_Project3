@@ -60,6 +60,35 @@ public class UnitTests extends junit.framework.TestCase {
         assertEquals("Invalid City Code", dm.displayCityInfo("Hello World"));
     }
 
+    public void test5() throws FileNotFoundException {
+        DijkstrasManager dm = new DijkstrasManager(initializeCityList(), initializeRoadList());
+        String path;
+
+        path = "The min distance between ANAHEIM and BAKERSFIELD is 225 through the path: AN, VV, CH, GG, LI, BK";
+        assertEquals(path, dm.displayShortestPath("an", "bk"));
+
+        path = "The min distance between ANAHEIM and VICTORVILLE is 36 through the path: AN, VV";
+        assertEquals(path, dm.displayShortestPath("an", "vv"));
+
+        path = "The min distance between VICTORVILLE and ANAHEIM is 246 through the path: VV, CH, GG, FI, AN";
+        assertEquals(path, dm.displayShortestPath("vv", "an"));
+
+        path = "The min distance between LAKE ISABELLA and TORRANCE is 199 through the path: LI, BK, LV, BO, TR";
+        assertEquals(path, dm.displayShortestPath("li", "tr"));
+
+        path = "Invalid City Codes";
+        assertEquals(path, dm.displayShortestPath("hello", "world"));
+
+        path = "The min distance between MOUNTAIN PASS and CHINO HILLS is 130 through the path: MP, GG, LI, BR, CH";
+        assertEquals(path, dm.displayShortestPath("mp", "ch"));
+
+        path = "The min distance between CHINO HILLS and MOUNTAIN PASS is 233 through the path: CH, GG, FI, MP";
+        assertEquals(path, dm.displayShortestPath("ch", "mp"));
+
+        path = "Invalid City Codes";
+        assertEquals(path, dm.displayShortestPath("an", "USA"));
+    }
+
     /**
      * Read in City.dat data.
      *
