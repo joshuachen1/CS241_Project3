@@ -57,6 +57,8 @@ public class UnitTests extends junit.framework.TestCase {
 
         cityInfo = "City{number = 8, cityCode = 'GD', name = 'GARDENA', population = 653210, elevation = 653210}";
         assertEquals(cityInfo, dm.displayCityInfo("GD"));
+
+        assertEquals("Invalid City Code", dm.displayCityInfo("Hello World"));
     }
 
     /**
