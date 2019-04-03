@@ -12,13 +12,12 @@ public class Driver {
     public static void main(String[] args) throws FileNotFoundException {
         List<City> cityList = initializeCityList();
         List<Road> roadList = initializeRoadList();
-        boolean[][] adjacencyMatrix = new boolean[cityList.size()][cityList.size()];
+        boolean[][] adjacencyMatrix = initializeAdjacencyMatrix(roadList, cityList.size());
     }
 
     /**
      * Read in City.dat data.
-     * Return a List of City objects.
-     * @return
+     * @return a List of City objects.
      * @throws FileNotFoundException
      */
     private static List<City> initializeCityList() throws FileNotFoundException {
@@ -41,8 +40,7 @@ public class Driver {
 
     /**
      * Read in Road.dat data.
-     * Return a List of Road objects.
-     * @return
+     * @return a List of Road objects.
      * @throws FileNotFoundException
      */
     private static List<Road> initializeRoadList() throws FileNotFoundException {
@@ -57,6 +55,22 @@ public class Driver {
             int endCity = Integer.parseInt(data[1].trim());
             int distance = Integer.parseInt(data[2].trim());
             temp.add(new Road(startCity, endCity, distance));
+        }
+        return temp;
+    }
+
+    /**
+     * Read the List of Roads.
+     * Create Adjacency Matrix of size: numCities.
+     * @param roadList
+     * @param numCities
+     * @return Adjacency Matrix representing the connecting roads.
+     */
+    private static boolean[][] initializeAdjacencyMatrix(List<Road> roadList, int numCities) {
+        boolean[][] temp = new boolean[numCities][numCities];
+
+        for (Road r : roadList) {
+            temp[r.getStartCity() - 1][r.getEndCity() - 1] = true;
         }
         return temp;
     }
